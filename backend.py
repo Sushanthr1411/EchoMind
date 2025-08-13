@@ -90,6 +90,7 @@ async def process_audio(file: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="Unsupported file type. Use WAV, MP3, or WebM.")
 
     audio_bytes = await file.read()
+    print(f"Received file type: {file.content_type}")  # Log the received file type
     # 1) Transcribe with Deepgram
     try:
         dg_resp = call_deepgram_binary(audio_bytes, mimetype=file.content_type)
