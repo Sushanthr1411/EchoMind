@@ -166,30 +166,3 @@ async def process_audio(file: UploadFile = File(...)):
     }
     print("Returning response to frontend:", json.dumps(final_response, indent=2))
     return JSONResponse(final_response)
-
-@app.post("/process-audio")
-async def process_audio():
-    try:
-        # ...existing code...
-        response = requests.post("https://api.gemini.com/process", data=data)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.HTTPError as http_err:
-        if response.status_code == 429:
-            return JSONResponse(
-                status_code=429,
-                content={
-                    "error": "Gemini API quota exceeded. Please try again later.",
-                    "retry_after": response.json().get("retry_delay", {}).get("seconds", 0),
-                    "documentation": "https://ai.google.dev/gemini-api/docs/rate-limits"
-                }
-            )
-        return JSONResponse(
-            status_code=502,
-            content={"error": f"Bad Gateway: {str(http_err)}"}
-        )
-    except Exception as err:
-        return JSONResponse(
-            status_code=500,
-            content={"error": f"Internal Server Error: {str(err)}"}
-        )
