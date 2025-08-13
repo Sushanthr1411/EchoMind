@@ -166,3 +166,7 @@ async def process_audio(file: UploadFile = File(...)):
     }
     print("Returning response to frontend:", json.dumps(final_response, indent=2))
     return JSONResponse(final_response)
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to EchoMind API!"}
