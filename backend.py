@@ -85,7 +85,7 @@ async def process_audio(file: UploadFile = File(...)):
     print(f"Received file type: {file.content_type}")
     # Accept more possible content types for WAV and generic audio
     allowed_types = [
-        "audio/wav", "audio/x-wav", "audio/mpeg", "audio/mp3", "audio/mpeg3", "audio/webm",
+        "audio/wav", "audio/x-wav", "audio/wave", "audio/mpeg", "audio/mp3", "audio/mpeg3", "audio/webm",
         "application/octet-stream"
     ]
     if file.content_type not in allowed_types:
