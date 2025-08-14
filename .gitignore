@@ -1,0 +1,29 @@
+# Node
+node_modules/
+.next/
+
+# Python
+__pycache__/
+env/
+*.pyc
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Misc
+*.sqlite3
+*.db
+
+# Vercel
+.vercel/
+
+# VSCode
+.vscode/
