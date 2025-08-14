@@ -24,14 +24,19 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 app = FastAPI(title="EchoMind Backend")
 
+
 # CORS middleware to allow frontend communication
-origins = [
+# Allow both local and production frontend URLs
+frontend_origin = os.getenv("FRONTEND_ORIGIN")
+default_origins = [
     "http://localhost:3000",
+    "https://echo-mind-eight.vercel.app/",  # Replace with your actual Vercel domain if different
 ]
+origins = [frontend_origin] if frontend_origin else default_origins
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Adjust to your frontend URL(s)
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
