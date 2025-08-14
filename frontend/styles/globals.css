@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(1 0 0);
+  --background: #f8fafc;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -40,7 +40,7 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: #18181b;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -117,16 +117,17 @@
   * {
     @apply border-border outline-ring/50;
   }
-  html, body {
-    height: 100%;
-    margin: 0;
-    background: linear-gradient(to bottom, #ffffff, #e6e6e6) !important;
-    color: var(--foreground);
-  }
-  .dark html, .dark body {
-    background: linear-gradient(to bottom, #2c3e50, #4a5568) !important;
-    color: var(--foreground);
-  }
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--background) !important;
+  color: var(--foreground);
+}
+
+html.dark body {
+  background: #18181b !important;
+  color: var(--foreground) !important;
+}
   /* Add responsive styles */
   body {
     font-size: 16px;

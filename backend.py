@@ -8,23 +8,19 @@ from fastapi.middleware.cors import CORSMiddleware
 import httpx
 from deepgram import Deepgram
 import google.generativeai as genai
-from supabase import create_client, Client
 
 load_dotenv()
 
 # Config
 DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")  # Updated with new key
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 
-if not (DEEPGRAM_API_KEY and GEMINI_API_KEY and SUPABASE_URL and SUPABASE_KEY):
+if not (DEEPGRAM_API_KEY and GEMINI_API_KEY):
     raise RuntimeError("Missing one or more required env vars. Check .env")
 
 # Clients
 dg_client = Deepgram(DEEPGRAM_API_KEY)
 genai.configure(api_key=GEMINI_API_KEY)
-supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 app = FastAPI(title="EchoMind Backend")
 
@@ -147,19 +143,7 @@ async def process_audio(file: UploadFile = File(...)):
         logging.error(f"Gemini error: {e}")
         raise HTTPException(status_code=502, detail=f"Gemini error: {e}")
 
-    # 3) Save to Supabase
-    try:
-        insert_payload = {
-            "transcript": transcript,
-            "summary": summary,
-            "tasks": tasks
-        }
-        supabase.table("echo_records").insert(insert_payload).execute()
-    except Exception as e:
-        # Non-fatal: still return the results but log
-        print("Supabase save error:", e)
-
-    # 4) Return structured result
+    # 3) Return structured result
     final_response = {
         "transcript": transcript,
         "summary": summary,
