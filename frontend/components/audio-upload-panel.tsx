@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
+const API_URL = process.env.NEXT_PUBLIC_API_URL
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -64,7 +65,7 @@ export function AudioUploadPanel({ onResult }: Props) {
         ...prev,
       ])
 
-      const res = await fetch("http://localhost:8000/process-audio", {
+  const res = await fetch(`${API_URL}/process-audio`, {
         method: "POST",
         body: formData,
       })
@@ -131,7 +132,7 @@ export function AudioUploadPanel({ onResult }: Props) {
           setError(null)
 
           try {
-            const res = await fetch("http://localhost:8000/process-audio", {
+            const res = await fetch(`${API_URL}/process-audio`, {
               method: "POST",
               body: formData,
             })
