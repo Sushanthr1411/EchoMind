@@ -4,6 +4,12 @@
 
 ---
 
+## Demo
+
+![EchoMind Demo](screenshot.png)
+
+---
+
 ## 🚀 Features
 
 - **Audio Transcription**: Converts audio files into text with high accuracy.

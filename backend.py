@@ -30,7 +30,7 @@ app = FastAPI(title="EchoMind Backend")
 frontend_origin = os.getenv("FRONTEND_ORIGIN")
 default_origins = [
     "http://localhost:3000",
-    "https://echo-mind-eight.vercel.app",  # Replace with your actual Vercel domain if different
+    "https://echo-mind-eight.vercel.app",  # No trailing slash
 ]
 origins = [frontend_origin] if frontend_origin else default_origins
 
