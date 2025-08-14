@@ -81,12 +81,17 @@ Transcript:
 
 @app.post("/process-audio")
 async def process_audio(file: UploadFile = File(...)):
-    # Basic validation
-    if file.content_type not in ("audio/wav", "audio/x-wav", "audio/mpeg", "audio/mp3", "audio/mpeg3", "audio/webm"):
-        raise HTTPException(status_code=400, detail="Unsupported file type. Use WAV, MP3, or WebM.")
+    # Log the detected content type for debugging
+    print(f"Received file type: {file.content_type}")
+    # Accept more possible content types for WAV and generic audio
+    allowed_types = [
+        "audio/wav", "audio/x-wav", "audio/mpeg", "audio/mp3", "audio/mpeg3", "audio/webm",
+        "application/octet-stream"
+    ]
+    if file.content_type not in allowed_types:
+        raise HTTPException(status_code=400, detail=f"Unsupported file type: {file.content_type}. Use WAV, MP3, or WebM.")
 
     audio_bytes = await file.read()
-    print(f"Received file type: {file.content_type}")  # Log the received file type
     # 1) Transcribe with Deepgram
     try:
         dg_resp = call_deepgram_binary(audio_bytes, mimetype=file.content_type)
