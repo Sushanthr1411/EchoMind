@@ -1,6 +1,6 @@
 # EchoMind
 
-🎙️ **EchoMind** is an intelligent transcription and summarization tool designed to convert audio inputs into actionable insights. It leverages advanced AI APIs like Deepgram for transcription and Gemini for summarization, making it a powerful assistant for meetings, lectures, and more.
+🎙️ **EchoMind** is an intelligent transcription and summarization tool designed to convert audio inputs into actionable insights. It leverages advanced AI APIs like Deepgram for transcription and Gemini for summarization, making it a powerful assistant for meetings, lectures.
 
 ---
 
